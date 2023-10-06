@@ -1,4 +1,3 @@
-
 # **[Darkstore](https://cs.wikipedia.org/wiki/Internetov%C3%A9_distribu%C4%8Dn%C3%AD_centrum) delivery API service**
 
   
@@ -22,7 +21,7 @@
    
 - Retrieving information about already distributed orders for couriers
    
-   ## Rate limiting:
+## Rate limiting:
    
 - Implementing a rate limiter to limit the number of requests to API
 
