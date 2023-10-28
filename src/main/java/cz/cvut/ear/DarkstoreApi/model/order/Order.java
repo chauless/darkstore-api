@@ -1,5 +1,6 @@
-package cz.cvut.ear.DarkstoreApi.model;
+package cz.cvut.ear.DarkstoreApi.model.order;
 
+import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import jakarta.persistence.*;
 import lombok.*;
 

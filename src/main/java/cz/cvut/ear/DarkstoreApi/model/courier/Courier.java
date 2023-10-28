@@ -1,5 +1,6 @@
-package cz.cvut.ear.DarkstoreApi.model;
+package cz.cvut.ear.DarkstoreApi.model.courier;
 
+import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

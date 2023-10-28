@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.model;
+package cz.cvut.ear.DarkstoreApi.model.order;
 
 public enum OrderStatus {
 

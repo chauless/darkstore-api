@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.model;
+package cz.cvut.ear.DarkstoreApi.model.order;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,12 +6,12 @@ import lombok.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "working_hours")
+@Table(name = "delivery_hours")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkingHour {
+public class DeliveryHour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,6 @@ public class WorkingHour {
     private LocalTime finish;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id")
-    private Courier courier;
+    @JoinColumn(name = "order_id")
+    private Order order;
 }
