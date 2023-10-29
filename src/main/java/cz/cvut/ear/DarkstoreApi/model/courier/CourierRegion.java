@@ -3,6 +3,8 @@ package cz.cvut.ear.DarkstoreApi.model.courier;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "courier_regions")
 @Getter
@@ -19,7 +21,6 @@ public class CourierRegion {
     @Column(name = "region")
     private int region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id")
-    private Courier courier;
+    @ManyToMany(mappedBy = "regions", fetch = FetchType.LAZY)
+    private List<Courier> courier;
 }

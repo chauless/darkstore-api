@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
+import cz.cvut.ear.DarkstoreApi.model.User;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,12 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Courier {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Courier extends User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
@@ -32,6 +28,10 @@ public class Courier {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<WorkingHour> workingHour;
 
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<CourierRegion> region;
+    @ManyToMany
+    @JoinTable(
+            name = "courier_regions",
+            joinColumns = @JoinColumn(name = "courier_id"),
+            inverseJoinColumns = @JoinColumn(name = "region_id"))
+    private List<CourierRegion> regions;
 }
