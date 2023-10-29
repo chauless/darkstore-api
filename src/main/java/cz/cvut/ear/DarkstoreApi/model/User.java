@@ -27,6 +27,6 @@ public class User {
     @Column(name = "password", length = 60)
     private String password;
 
-    @Column(name = "roles")
-    private Set<Role> roles;
+    @Column(name = "role")
+    private Role role;
 }
