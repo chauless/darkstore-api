@@ -30,7 +30,7 @@ public class Courier extends User {
 
     @ManyToMany
     @JoinTable(
-            name = "courier_regions",
+            name = "couriers_regions",
             joinColumns = @JoinColumn(name = "courier_id"),
             inverseJoinColumns = @JoinColumn(name = "region_id"))
     private List<CourierRegion> regions;
