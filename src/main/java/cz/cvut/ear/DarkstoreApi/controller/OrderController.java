@@ -4,12 +4,10 @@ import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,21 @@ public class OrderController {
     @PostMapping
     public List<OrderDto> createOrders(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         return orderService.createOrders(createOrderRequest);
+    }
+
+    @GetMapping
+    public List<OrderDto> getOrders(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
+                                    @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
+        return orderService.getOrders(limit, offset);
+    }
+
+    @GetMapping("/{order_id}")
+    public OrderDto getOrderById(@PathVariable(name = "order_id") long orderId) {
+        return orderService.getOrder(orderId);
+    }
+
+    @PostMapping("/complete")
+    public List<OrderDto> completeOrders() {
+        return null;
     }
 }
