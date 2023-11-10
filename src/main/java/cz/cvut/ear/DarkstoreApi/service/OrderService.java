@@ -33,4 +33,6 @@ public interface OrderService {
      * @return An OrderDto object representing the retrieved order.
      */
     OrderDto getOrder(long orderId);
+
+    List<OrderDto> completeOrders();
 }
