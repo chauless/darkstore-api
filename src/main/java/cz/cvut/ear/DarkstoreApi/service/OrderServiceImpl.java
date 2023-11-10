@@ -58,4 +58,9 @@ public class OrderServiceImpl implements OrderService {
 
         return modelMapper.map(order.get(), OrderDto.class);
     }
+
+    @Override
+    public List<OrderDto> completeOrders() {
+        return null;
+    }
 }
