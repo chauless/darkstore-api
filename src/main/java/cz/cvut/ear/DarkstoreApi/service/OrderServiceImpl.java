@@ -3,6 +3,7 @@ package cz.cvut.ear.DarkstoreApi.service;
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
+import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import cz.cvut.ear.DarkstoreApi.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -39,11 +41,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrders(int limit, int offset) {
-        return null;
+        return orderRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
+                .map(order -> modelMapper.map(order, OrderDto.class))
+                .toList();
     }
 
     @Override
     public OrderDto getOrder(long orderId) {
-        return null;
+        Optional<Order> order = orderRepository.findById(orderId);
+
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException();
+        }
+
+        return modelMapper.map(order.get(), OrderDto.class);
     }
 }
