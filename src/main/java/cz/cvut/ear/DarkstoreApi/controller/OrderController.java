@@ -6,6 +6,7 @@ import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +21,18 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public List<OrderDto> createOrders(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
+    public ResponseEntity<List<OrderDto>> createOrders(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         return orderService.createOrders(createOrderRequest);
     }
 
     @GetMapping
-    public List<OrderDto> getOrders(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
+    public ResponseEntity<List<OrderDto>> getOrders(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
                                     @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
         return orderService.getOrders(limit, offset);
     }
 
     @GetMapping("/{order_id}")
-    public OrderDto getOrderById(@PathVariable(name = "order_id") long orderId) {
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable(name = "order_id") long orderId) {
         return orderService.getOrder(orderId);
     }
 
