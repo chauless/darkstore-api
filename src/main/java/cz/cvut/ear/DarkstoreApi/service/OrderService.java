@@ -2,6 +2,7 @@ package cz.cvut.ear.DarkstoreApi.service;
 
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface OrderService {
      * @param createOrderRequest The request containing a list of order data in JSON format.
      * @return A list of OrderDto objects representing the created orders.
      */
-    List<OrderDto> createOrders(CreateOrderRequest createOrderRequest);
+    ResponseEntity<List<OrderDto>> createOrders(CreateOrderRequest createOrderRequest);
 
     /**
      * Retrieves a list of orders with optional pagination.
@@ -24,7 +25,7 @@ public interface OrderService {
      * @param offset The offset for pagination.
      * @return A list of OrderDto objects representing the retrieved orders.
      */
-    List<OrderDto> getOrders(int limit, int offset);
+    ResponseEntity<List<OrderDto>> getOrders(int limit, int offset);
 
     /**
      * Retrieves details of a specific order by ID.
@@ -32,7 +33,7 @@ public interface OrderService {
      * @param orderId ID of the order to retrieve.
      * @return An OrderDto object representing the retrieved order.
      */
-    OrderDto getOrder(long orderId);
+    ResponseEntity<OrderDto> getOrder(long orderId);
 
-    List<OrderDto> completeOrders();
+    ResponseEntity<List<OrderDto>> completeOrders();
 }
