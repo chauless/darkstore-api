@@ -21,6 +21,10 @@ public class CourierRegion {
     @Column(name = "region")
     private int region;
 
-    @ManyToMany(mappedBy = "regions", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "regions", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Courier> courier;
+
+    public CourierRegion(Integer region) {
+        this.region = region;
+    }
 }

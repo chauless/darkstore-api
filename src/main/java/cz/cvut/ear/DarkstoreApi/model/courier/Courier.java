@@ -28,7 +28,7 @@ public class Courier extends User {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<WorkingHour> workingHour;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "couriers_regions",
             joinColumns = @JoinColumn(name = "courier_id"),
