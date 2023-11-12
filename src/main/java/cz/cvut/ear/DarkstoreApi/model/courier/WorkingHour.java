@@ -24,7 +24,13 @@ public class WorkingHour {
     @Column(name = "finish")
     private LocalTime finish;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "courier_id", nullable = false)
     private Courier courier;
+
+    public WorkingHour(LocalTime start, LocalTime finish, Courier courier) {
+        this.start = start;
+        this.finish = finish;
+        this.courier = courier;
+    }
 }
