@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
+import cz.cvut.ear.DarkstoreApi.dto.CompleteOrderRequestDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
@@ -37,7 +38,7 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public List<OrderDto> completeOrders() {
-        return null;
+    public ResponseEntity<List<OrderDto>> completeOrders(@RequestBody @Valid CompleteOrderRequestDto completeOrderRequestDto) {
+        return orderService.completeOrders(completeOrderRequestDto);
     }
 }
