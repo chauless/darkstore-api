@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
+import cz.cvut.ear.DarkstoreApi.dto.CompleteOrderRequestDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,12 @@ public interface OrderService {
      */
     ResponseEntity<OrderDto> getOrder(long orderId);
 
-    ResponseEntity<List<OrderDto>> completeOrders();
+
+    /**
+     * Completes multiple orders at once.
+     *
+     * @param completeOrderRequestDto The CompleteOrderRequestDto containing information about the orders to complete.
+     * @return list of OrderDto representing the completed orders.
+     */
+    ResponseEntity<List<OrderDto>> completeOrders(CompleteOrderRequestDto completeOrderRequestDto);
 }
