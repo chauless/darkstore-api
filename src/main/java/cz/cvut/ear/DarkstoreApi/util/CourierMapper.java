@@ -14,7 +14,7 @@ public class CourierMapper {
     public static Courier mapToCourier(CreateCourierDto createCourierDto) {
         Courier courier = new Courier();
         courier.setType(createCourierDto.getType());
-        courier.setWorkingHour(convertToWorkingHours(createCourierDto.getWorkingHour(), courier));
+        courier.setWorkingHours(convertToWorkingHours(createCourierDto.getWorkingHour(), courier));
         courier.setRegions(convertToCourierRegions(createCourierDto.getRegions()));
         courier.setEmail(createCourierDto.getEmail());
         courier.setPassword(createCourierDto.getPassword());
@@ -38,7 +38,7 @@ public class CourierMapper {
         CourierDto courierDto = new CourierDto();
         courierDto.setCourierId(courier.getId());
         courierDto.setType(courier.getType());
-        courierDto.setWorkingHour(courier.getWorkingHour().stream()
+        courierDto.setWorkingHour(courier.getWorkingHours().stream()
                 .map(workingHour -> workingHour.getStart() + "-" + workingHour.getFinish())
                 .collect(Collectors.toList()));
         courierDto.setRegions(courier.getRegions().stream()

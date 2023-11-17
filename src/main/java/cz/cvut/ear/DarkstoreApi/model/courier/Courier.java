@@ -26,7 +26,7 @@ public class Courier extends User {
     private List<Order> orders;
 
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<WorkingHour> workingHour;
+    private List<WorkingHour> workingHours;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
