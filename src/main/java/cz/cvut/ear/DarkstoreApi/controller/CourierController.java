@@ -26,7 +26,7 @@ public class CourierController {
 
     @GetMapping
     public ResponseEntity<List<CourierDto>> getCouriers(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
-                                        @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
+                                                        @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
         return ResponseEntity.ok(courierService.getCouriers(limit, offset));
     }
 

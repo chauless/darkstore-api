@@ -14,13 +14,6 @@ import java.util.stream.Collectors;
 public interface OrderMapper {
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(source = "weight", target = "weight")
-    @Mapping(source = "region", target = "region")
-    @Mapping(source = "deliveryHours", target = "deliveryHours", qualifiedByName = "convertToDeliveryHours")
-    @Mapping(source = "cost", target = "cost")
-    Order createOrderDtoToOrder(CreateOrderDto createOrderDto);
-
     @Named("convertToDeliveryHours")
     static List<DeliveryHour> convertToDeliveryHours(List<String> deliveryHours) {
         return deliveryHours.stream().map(deliveryHour -> {
@@ -28,6 +21,19 @@ public interface OrderMapper {
             return new DeliveryHour(hours[0], hours[1]);
         }).collect(Collectors.toList());
     }
+
+    @Named("deliveryHoursToString")
+    static List<String> deliveryHoursToString(List<DeliveryHour> deliveryHours) {
+        return deliveryHours.stream().map(deliveryHour -> deliveryHour.getStart()
+                + "-" + deliveryHour.getFinish()).collect(Collectors.toList());
+    }
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "weight", target = "weight")
+    @Mapping(source = "region", target = "region")
+    @Mapping(source = "deliveryHours", target = "deliveryHours", qualifiedByName = "convertToDeliveryHours")
+    @Mapping(source = "cost", target = "cost")
+    Order createOrderDtoToOrder(CreateOrderDto createOrderDto);
 
     @AfterMapping
     default void setOrder(@MappingTarget Order order) {
@@ -41,14 +47,6 @@ public interface OrderMapper {
     @Mapping(source = "cost", target = "cost")
     @Mapping(source = "completeTime", target = "completeTime")
     OrderDto orderToOrderDto(Order order);
-
-    @Named("deliveryHoursToString")
-    static List<String> deliveryHoursToString(List<DeliveryHour> deliveryHours) {
-        return deliveryHours.stream().map(deliveryHour -> deliveryHour.getStart() + "-" + deliveryHour.getFinish()).collect(Collectors.toList());
-    }
-
-
-
 
     List<Order> createOrderDtoToOrder(List<CreateOrderDto> createOrderDto);
 

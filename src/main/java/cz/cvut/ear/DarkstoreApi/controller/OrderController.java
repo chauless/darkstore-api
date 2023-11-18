@@ -28,7 +28,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> getOrders(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
-                                    @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
+                                                    @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
         return ResponseEntity.ok(orderService.getOrders(limit, offset));
     }
 

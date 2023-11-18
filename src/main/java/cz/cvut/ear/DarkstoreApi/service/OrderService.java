@@ -8,16 +8,12 @@ import cz.cvut.ear.DarkstoreApi.model.order.OrderStatus;
 import cz.cvut.ear.DarkstoreApi.repository.OrderRepository;
 import cz.cvut.ear.DarkstoreApi.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -42,10 +38,7 @@ public class OrderService {
     }
 
     public List<OrderDto> getOrders(int limit, int offset) {
-        return orderMapper.orderToOrderDto(orderRepository.findAll().stream()
-                .skip(offset)
-                .limit(limit)
-                .toList());
+        return orderMapper.orderToOrderDto(orderRepository.findAll().stream().skip(offset).limit(limit).toList());
     }
 
     public OrderDto getOrder(long orderId) {
@@ -57,21 +50,19 @@ public class OrderService {
     public List<OrderDto> completeOrders(CompleteOrderRequestDto completeOrderRequestDto) {
         List<CompleteOrder> completeOrders = completeOrderRequestDto.getCompleteOrders();
 
-        List<Order> completedOrders = completeOrders.stream()
-                        .map(completeOrder -> {
-                            Order order = orderRepository.findById(completeOrder.getOrderId())
-                                    .orElseThrow(() -> new OrderNotFoundException("Order with id " + completeOrder.getOrderId() + " not found."));
+        List<Order> completedOrders = completeOrders.stream().map(completeOrder -> {
+            Order order = orderRepository.findById(completeOrder.getOrderId()).orElseThrow(() ->
+                    new OrderNotFoundException("Order with id " + completeOrder.getOrderId() + " not found."));
 
-                            isOrderValid(order, completeOrder);
+            isOrderValid(order, completeOrder);
 
-                            order.setCompleteTime(LocalDateTime.parse(completeOrder.getCompleteTime(), DateTimeFormatter.ISO_DATE_TIME));
-                            order.setStatus(OrderStatus.FINISHED);
-                            return order;
-                        }).toList();
+            order.setCompleteTime(LocalDateTime.parse(completeOrder.getCompleteTime(), DateTimeFormatter.ISO_DATE_TIME));
+            order.setStatus(OrderStatus.FINISHED);
+            return order;
+        }).toList();
 
         return orderRepository.saveAll(completedOrders).stream()
-                .map(orderMapper::orderToOrderDto)
-                .collect(Collectors.toList());
+                .map(orderMapper::orderToOrderDto).collect(Collectors.toList());
     }
 
     private void isOrderValid(Order order, CompleteOrder completeOrder) {

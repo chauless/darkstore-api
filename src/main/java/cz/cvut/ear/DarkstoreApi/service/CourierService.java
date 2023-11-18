@@ -8,7 +8,6 @@ import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.repository.CourierRepository;
 import cz.cvut.ear.DarkstoreApi.util.mapper.CourierMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +32,7 @@ public class CourierService {
     }
 
     public List<CourierDto> getCouriers(int limit, int offset) {
-        return courierMapper.courierToCourierDto(courierRepository.findAll().stream()
-                .skip(offset)
-                .limit(limit)
-                .toList());
+        return courierMapper.courierToCourierDto(courierRepository.findAll().stream().skip(offset).limit(limit).toList());
     }
 
     public CourierDto getCourier(long courierId) {

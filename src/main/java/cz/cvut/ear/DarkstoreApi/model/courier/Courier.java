@@ -32,6 +32,7 @@ public class Courier extends User {
     @JoinTable(
             name = "couriers_regions",
             joinColumns = @JoinColumn(name = "courier_id"),
-            inverseJoinColumns = @JoinColumn(name = "region_id"))
+            inverseJoinColumns = @JoinColumn(name = "region_id")
+    )
     private List<CourierRegion> regions;
 }
