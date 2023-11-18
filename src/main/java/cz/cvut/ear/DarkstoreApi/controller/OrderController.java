@@ -23,22 +23,22 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<List<OrderDto>> createOrders(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
-        return orderService.createOrders(createOrderRequest);
+        return ResponseEntity.ok(orderService.createOrders(createOrderRequest));
     }
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> getOrders(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
                                     @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
-        return orderService.getOrders(limit, offset);
+        return ResponseEntity.ok(orderService.getOrders(limit, offset));
     }
 
     @GetMapping("/{order_id}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable(name = "order_id") long orderId) {
-        return orderService.getOrder(orderId);
+        return ResponseEntity.ok(orderService.getOrder(orderId));
     }
 
     @PostMapping("/complete")
     public ResponseEntity<List<OrderDto>> completeOrders(@RequestBody @Valid CompleteOrderRequestDto completeOrderRequestDto) {
-        return orderService.completeOrders(completeOrderRequestDto);
+        return ResponseEntity.ok(orderService.completeOrders(completeOrderRequestDto));
     }
 }
