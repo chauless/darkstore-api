@@ -33,4 +33,9 @@ public class WorkingHour {
         this.finish = finish;
         this.courier = courier;
     }
+
+    public WorkingHour(LocalTime start, LocalTime finish) {
+        this.start = start;
+        this.finish = finish;
+    }
 }

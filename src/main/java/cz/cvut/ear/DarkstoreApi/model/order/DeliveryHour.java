@@ -27,4 +27,9 @@ public class DeliveryHour {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public DeliveryHour(String start, String finish) {
+        this.start = LocalTime.parse(start);
+        this.finish = LocalTime.parse(finish);
+    }
 }
