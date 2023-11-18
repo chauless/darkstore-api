@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class CompleteOrderRequestDto {
 
-    @JsonProperty("complete_info")
+    @JsonProperty("orders")
     @Valid
     private List<CompleteOrder> completeOrders;
 }
