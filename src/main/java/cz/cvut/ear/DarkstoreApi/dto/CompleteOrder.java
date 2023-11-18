@@ -6,9 +6,6 @@ import lombok.Data;
 
 @Data
 public class CompleteOrder {
-    @JsonProperty("courier_id")
-    private long courierId;
-
     @JsonProperty("order_id")
     private long orderId;
 
