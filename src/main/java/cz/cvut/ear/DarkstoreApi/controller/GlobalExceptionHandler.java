@@ -3,6 +3,7 @@ package cz.cvut.ear.DarkstoreApi.controller;
 import cz.cvut.ear.DarkstoreApi.dto.ErrorDetails;
 import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +17,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleNotFoundException(RuntimeException ex) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class, IllegalArgumentException.class})
+    public ResponseEntity<?> handleDataIntegrityViolationException(RuntimeException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
