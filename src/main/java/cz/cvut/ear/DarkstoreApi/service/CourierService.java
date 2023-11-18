@@ -10,6 +10,7 @@ import cz.cvut.ear.DarkstoreApi.util.mapper.CourierMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class CourierService {
     private final CourierRepository courierRepository;
     private final CourierMapper courierMapper;
 
+    @Transactional
     public List<CourierDto> createCouriers(CreateCourierRequest createCourierRequest) {
         List<Courier> savedCouriers = courierMapper.createCourierDtoToCourier(createCourierRequest.getCouriers());
 

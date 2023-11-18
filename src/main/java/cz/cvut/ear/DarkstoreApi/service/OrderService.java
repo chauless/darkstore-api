@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +28,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
 
+    @Transactional
     public List<OrderDto> createOrders(CreateOrderRequest createOrderRequest) {
         List<CreateOrderDto> createOrderDtos = createOrderRequest.getOrders();
 
@@ -51,6 +53,7 @@ public class OrderService {
                 .orElseThrow(() -> new OrderNotFoundException("Order with id " + orderId + " not found.")));
     }
 
+    @Transactional
     public List<OrderDto> completeOrders(CompleteOrderRequestDto completeOrderRequestDto) {
         List<CompleteOrder> completeOrders = completeOrderRequestDto.getCompleteOrders();
 
