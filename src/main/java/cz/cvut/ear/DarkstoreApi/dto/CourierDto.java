@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,15 +14,12 @@ import java.util.List;
 public class CourierDto {
     private Long courierId;
 
-    @NotNull
     private String email;
 
-    @NotNull
     private CourierType type;
 
-    @NotEmpty
     private List<Integer> regions;
 
-    @Valid
-    private List<@Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]-(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$") String> workingHour;
+    @JsonProperty("working_hours")
+    private List<String> workingHours;
 }
