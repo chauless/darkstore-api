@@ -29,7 +29,7 @@ public class Order {
     @Column(name = "cost")
     private int cost;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeliveryHour> deliveryHours;
 
     @Enumerated(EnumType.STRING)
