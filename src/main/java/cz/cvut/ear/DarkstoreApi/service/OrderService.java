@@ -48,13 +48,13 @@ public class OrderService {
 
     @Transactional
     public List<OrderDto> completeOrders(CompleteOrderRequestDto completeOrderRequestDto) {
-        List<CompleteOrder> completeOrders = completeOrderRequestDto.getCompleteOrders();
+        List<CompleteOrderDto> completeOrdersDto = completeOrderRequestDto.getCompleteOrders();
 
-        List<Order> completedOrders = completeOrders.stream().map(completeOrder -> {
+        List<Order> completedOrders = completeOrdersDto.stream().map(completeOrder -> {
             Order order = orderRepository.findById(completeOrder.getOrderId()).orElseThrow(() ->
                     new OrderNotFoundException("Order with id " + completeOrder.getOrderId() + " not found."));
 
-            isOrderValid(order, completeOrder);
+            isOrderValid(order);
 
             order.setCompleteTime(LocalDateTime.parse(completeOrder.getCompleteTime(), DateTimeFormatter.ISO_DATE_TIME));
             order.setStatus(OrderStatus.FINISHED);
@@ -65,7 +65,7 @@ public class OrderService {
                 .map(orderMapper::orderToOrderDto).collect(Collectors.toList());
     }
 
-    private void isOrderValid(Order order, CompleteOrder completeOrder) {
+    private void isOrderValid(Order order) {
         if (order.getStatus() != OrderStatus.ASSIGNED) {
             throw new OrderNotReadyForCompletionException("Order must have status assigned to be completed.");
         }
