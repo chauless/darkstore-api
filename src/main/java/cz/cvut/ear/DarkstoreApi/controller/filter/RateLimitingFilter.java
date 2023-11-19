@@ -2,6 +2,7 @@ package cz.cvut.ear.DarkstoreApi.controller.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.cvut.ear.DarkstoreApi.configuration.RateLimiterConfiguration;
 import cz.cvut.ear.DarkstoreApi.dto.ErrorDetails;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -23,12 +24,18 @@ public class RateLimitingFilter extends OncePerRequestFilter {
     private final Bucket bucket;
 
     private final ObjectMapper objectMapper;
+//    private final RateLimiterConfiguration properties;
 
     @Autowired
-    public RateLimitingFilter(ObjectMapper objectMapper) {
+    public RateLimitingFilter(ObjectMapper objectMapper, RateLimiterConfiguration properties) {
         this.objectMapper = objectMapper;
+//        this.properties = properties;
 
-        Bandwidth limit = Bandwidth.classic(10, Refill.greedy(10, Duration.ofSeconds(1))).withInitialTokens(10);
+        Bandwidth limit = Bandwidth.classic(
+                properties.getCapacity(),
+                Refill.greedy(properties.getRefillTokens(),
+                        Duration.ofSeconds(properties.getRefillDurationInSeconds())))
+                .withInitialTokens(properties.getInitialTokens());
         this.bucket = Bucket.builder()
                 .addLimit(limit)
                 .build();

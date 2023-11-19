@@ -17,3 +17,9 @@ spring:
     hidden-method:
       filter:
         enabled: true
+
+rate-limiter:
+  capacity: 10
+  refillTokens: 10
+  refillDurationInSeconds: 10
+  initialTokens: 10
