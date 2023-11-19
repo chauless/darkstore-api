@@ -1,15 +1,43 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
-import cz.cvut.ear.DarkstoreApi.dto.*;
-import org.springframework.http.ResponseEntity;
+import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
+import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
+import cz.cvut.ear.DarkstoreApi.model.Role;
+import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
+import cz.cvut.ear.DarkstoreApi.repository.CourierRepository;
+import cz.cvut.ear.DarkstoreApi.util.mapper.CourierMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface CourierService {
 
-    ResponseEntity<List<CourierDto>> createCouriers(CreateCourierRequest createCourierRequest);
+@Service
+@RequiredArgsConstructor
+public class CourierService {
+    private final CourierRepository courierRepository;
+    private final CourierMapper courierMapper;
 
-    ResponseEntity<List<CourierDto>> getCouriers(int limit, int offset);
+    @Transactional
+    public List<CourierDto> createCouriers(CreateCourierRequest createCourierRequest) {
+        List<Courier> savedCouriers = courierMapper.createCourierDtoToCourier(createCourierRequest.getCouriers());
 
-    ResponseEntity<CourierDto> getCourier(long courierId);
+        savedCouriers.forEach(courier -> courier.setRole(Role.ROLE_COURIER));
+
+        savedCouriers = courierRepository.saveAll(savedCouriers);
+
+        return courierMapper.courierToCourierDto(savedCouriers);
+    }
+
+    public List<CourierDto> getCouriers(int limit, int offset) {
+        return courierMapper.courierToCourierDto(courierRepository.findAll().stream().skip(offset).limit(limit).toList());
+    }
+
+    public CourierDto getCourier(long courierId) {
+        return courierRepository.findById(courierId)
+                .map(courierMapper::courierToCourierDto)
+                .orElseThrow(() -> new CourierNotFoundException("Courier with id " + courierId + " not found."));
+    }
 }
