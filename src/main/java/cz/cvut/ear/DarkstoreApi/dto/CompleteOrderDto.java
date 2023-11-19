@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class CompleteOrder {
+public class CompleteOrderDto {
     @JsonProperty("order_id")
     private long orderId;
 
