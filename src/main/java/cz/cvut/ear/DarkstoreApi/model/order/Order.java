@@ -2,7 +2,10 @@ package cz.cvut.ear.DarkstoreApi.model.order;
 
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +32,7 @@ public class Order {
     @Column(name = "cost")
     private int cost;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeliveryHour> deliveryHours;
 
     @Enumerated(EnumType.STRING)

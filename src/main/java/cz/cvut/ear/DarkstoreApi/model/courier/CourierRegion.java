@@ -1,7 +1,10 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourierRegion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

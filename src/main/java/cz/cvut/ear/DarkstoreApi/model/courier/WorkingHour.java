@@ -1,7 +1,10 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
@@ -32,5 +35,10 @@ public class WorkingHour {
         this.start = start;
         this.finish = finish;
         this.courier = courier;
+    }
+
+    public WorkingHour(LocalTime start, LocalTime finish) {
+        this.start = start;
+        this.finish = finish;
     }
 }

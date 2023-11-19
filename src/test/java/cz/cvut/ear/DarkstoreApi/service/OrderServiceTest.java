@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderServiceImplTest {
+public class OrderServiceTest {
 
     @Mock
     private OrderRepository orderRepository;
@@ -34,7 +34,7 @@ public class OrderServiceImplTest {
     private ModelMapper modelMapper;
 
     @InjectMocks
-    private OrderServiceImpl orderService;
+    private OrderService orderService;
 
     private CreateOrderDto createOrderDto;
     private Order order;

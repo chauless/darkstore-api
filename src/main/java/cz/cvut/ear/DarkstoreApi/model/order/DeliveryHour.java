@@ -1,7 +1,10 @@
 package cz.cvut.ear.DarkstoreApi.model.order;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
@@ -27,4 +30,9 @@ public class DeliveryHour {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public DeliveryHour(String start, String finish) {
+        this.start = LocalTime.parse(start);
+        this.finish = LocalTime.parse(finish);
+    }
 }
