@@ -35,4 +35,37 @@ public class Courier extends User {
             inverseJoinColumns = @JoinColumn(name = "region_id")
     )
     private List<CourierRegion> regions;
+
+    @Transient
+    private int earningsCoefficient;
+
+    @Transient
+    private int rateCoefficient;
+
+    private void calculateEarningsCoefficient() {
+        switch (type) {
+            case FOOT -> earningsCoefficient = 2;
+            case BIKE -> earningsCoefficient = 3;
+            case AUTO -> earningsCoefficient = 4;
+        }
+    }
+
+    private void calculateRateCoefficient() {
+        switch (type) {
+            case FOOT -> rateCoefficient = 3;
+            case BIKE -> rateCoefficient = 2;
+            case AUTO -> rateCoefficient = 1;
+        }
+    }
+
+    public int getEarningsCoefficient() {
+        calculateEarningsCoefficient();
+        return earningsCoefficient;
+    }
+
+    public int getRateCoefficient() {
+        calculateRateCoefficient();
+        return rateCoefficient;
+    }
+
 }
