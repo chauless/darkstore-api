@@ -10,5 +10,5 @@ import java.util.List;
 public class CompleteOrderRequestDto {
     @JsonProperty("orders")
     @Valid
-    private List<CompleteOrder> completeOrders;
+    private List<CompleteOrderDto> completeOrders;
 }
