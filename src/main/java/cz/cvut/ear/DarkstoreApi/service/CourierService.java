@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static cz.cvut.ear.DarkstoreApi.model.courier.CourierType.*;
+
 
 @Service
 @RequiredArgsConstructor
@@ -63,20 +65,59 @@ public class CourierService {
             return new CourierMetaInfo(0, 0);
         }
 
+        int earnings = getEarnings(courier, orders);
+        double rate = getRate(courier, orders, startDate, endDate);
+
+        return new CourierMetaInfo(earnings, rate);
+    }
+
+    private int getEarnings(Courier courier, List<Order> orders) {
+        int courierEarningsCoefficient = calculateEarningsCoefficient(courier);
+
         int earnings = 0;
 
         for (Order order : orders) {
-            earnings += order.getCost() * courier.getEarningsCoefficient();
+            earnings += order.getCost() * courierEarningsCoefficient;
         }
+
+        return earnings;
+    }
+
+    private double getRate(Courier courier, List<Order> orders, LocalDateTime startDate, LocalDateTime endDate) {
+        int courierRateCoefficient = calculateRateCoefficient(courier);
 
         long numberOfHoursBetweenDates = ChronoUnit.HOURS.between(startDate, endDate);
 
         BigDecimal rate = BigDecimal.valueOf(orders.size())
                 .divide(BigDecimal.valueOf(numberOfHoursBetweenDates), 2, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(courier.getRateCoefficient()));
+                .multiply(BigDecimal.valueOf(courierRateCoefficient));
 
         rate = rate.setScale(2, RoundingMode.HALF_UP);
 
-        return new CourierMetaInfo(earnings, rate.doubleValue());
+        return rate.doubleValue();
+    }
+
+    private int calculateEarningsCoefficient(Courier courier) {
+        int earningsCoefficient;
+        switch (courier.getType()) {
+            case FOOT -> earningsCoefficient = 2;
+            case BIKE -> earningsCoefficient = 3;
+            case AUTO -> earningsCoefficient = 4;
+            default -> earningsCoefficient = -1;
+        }
+
+        return earningsCoefficient;
+    }
+
+    private int calculateRateCoefficient(Courier courier) {
+        int rateCoefficient;
+        switch (courier.getType()) {
+            case FOOT -> rateCoefficient = 3;
+            case BIKE -> rateCoefficient = 2;
+            case AUTO -> rateCoefficient = 1;
+            default -> rateCoefficient = -1;
+        }
+
+        return rateCoefficient;
     }
 }
