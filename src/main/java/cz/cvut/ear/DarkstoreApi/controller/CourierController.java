@@ -1,6 +1,8 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
 import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfo;
+import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfoRequestDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
 import cz.cvut.ear.DarkstoreApi.service.CourierService;
 import jakarta.validation.Valid;
@@ -9,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -33,5 +34,11 @@ public class CourierController {
     @GetMapping("/{courier_id}")
     public ResponseEntity<CourierDto> getCourierById(@PathVariable(name = "courier_id") long courierId) {
         return ResponseEntity.ok(courierService.getCourier(courierId));
+    }
+
+    @GetMapping("/meta-info/{courier_id}")
+    public ResponseEntity<CourierMetaInfo> getCourierMetaInfoById(@PathVariable(name = "courier_id") long courierId,
+                                                                  @RequestBody CourierMetaInfoRequestDto courierMetaInfoRequestDto) {
+        return ResponseEntity.ok(courierService.getCourierMetaInfo(courierId, courierMetaInfoRequestDto));
     }
 }
