@@ -27,7 +27,7 @@ public class DeliveryHour {
     @Column(name = "finish")
     private LocalTime finish;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
