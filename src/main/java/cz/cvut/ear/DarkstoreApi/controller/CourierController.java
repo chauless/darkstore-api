@@ -1,10 +1,8 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfo;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfoRequestDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
+import cz.cvut.ear.DarkstoreApi.dto.*;
 import cz.cvut.ear.DarkstoreApi.service.CourierService;
+import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,7 @@ import java.util.List;
 @Validated
 public class CourierController {
     private final CourierService courierService;
+    private final OrderService orderService;
 
     @PostMapping
     public ResponseEntity<List<CourierDto>> createCouriers(@RequestBody @Valid CreateCourierRequest createCourierRequest) {
@@ -40,5 +39,11 @@ public class CourierController {
     public ResponseEntity<CourierMetaInfo> getCourierMetaInfoById(@PathVariable(name = "courier_id") long courierId,
                                                                   @RequestBody CourierMetaInfoRequestDto courierMetaInfoRequestDto) {
         return ResponseEntity.ok(courierService.getCourierMetaInfo(courierId, courierMetaInfoRequestDto));
+    }
+
+    @GetMapping("/assignments")
+    public ResponseEntity<List<OrderGroupDto>> getAssignments(@RequestParam(required = false, defaultValue = "1") @PositiveOrZero int limit,
+                                                              @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int offset) {
+        return ResponseEntity.ok(orderService.getOrderGroups(limit, offset));
     }
 }

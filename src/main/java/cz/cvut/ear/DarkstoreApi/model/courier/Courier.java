@@ -1,13 +1,14 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
 import cz.cvut.ear.DarkstoreApi.model.User;
-import cz.cvut.ear.DarkstoreApi.model.order.Order;
+import cz.cvut.ear.DarkstoreApi.model.order.OrderGroup;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,9 +23,6 @@ public class Courier extends User {
     @Column(name = "type")
     private CourierType type;
 
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orders;
-
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<WorkingHour> workingHours;
 
@@ -35,4 +33,7 @@ public class Courier extends User {
             inverseJoinColumns = @JoinColumn(name = "region_id")
     )
     private List<CourierRegion> regions;
+
+    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderGroup> orderGroups = new ArrayList<>();
 }

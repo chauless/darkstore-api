@@ -12,6 +12,7 @@ import cz.cvut.ear.DarkstoreApi.repository.CourierRepository;
 import cz.cvut.ear.DarkstoreApi.repository.OrderRepository;
 import cz.cvut.ear.DarkstoreApi.util.mapper.CourierMapper;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +21,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-import static cz.cvut.ear.DarkstoreApi.model.courier.CourierType.*;
 
 
 @Service
@@ -59,7 +58,7 @@ public class CourierService {
         Courier courier = courierRepository.findById(courierId)
                 .orElseThrow(() -> new CourierNotFoundException("Courier with id " + courierId + " not found."));
 
-        List<Order> orders = orderRepository.findByCourierAndCompleteTimeBetween(courier, startDate, endDate);
+        List<Order> orders = orderRepository.findByOrderGroupCourierAndCompleteTimeBetween(courier, startDate, endDate);
 
         if (orders.isEmpty()) {
             return new CourierMetaInfo(0, 0);
@@ -74,13 +73,28 @@ public class CourierService {
     private int getEarnings(Courier courier, List<Order> orders) {
         int courierEarningsCoefficient = calculateEarningsCoefficient(courier);
 
-        int earnings = 0;
+        BigDecimal earnings = BigDecimal.ZERO;
 
         for (Order order : orders) {
-            earnings += order.getCost() * courierEarningsCoefficient;
+            earnings = earnings.add(getAdjustedCost(order).multiply(BigDecimal.valueOf(courierEarningsCoefficient)));
         }
 
-        return earnings;
+        earnings = earnings.setScale(0, RoundingMode.HALF_UP);
+
+        return earnings.intValue();
+    }
+
+    private BigDecimal getAdjustedCost(Order order) {
+        BigDecimal adjustedCost = BigDecimal.valueOf(order.getCost());
+        if (isFirstOrderInGroup(order)) {
+            adjustedCost = adjustedCost.multiply(BigDecimal.valueOf(0.8));
+        }
+        return adjustedCost;
+    }
+
+    private boolean isFirstOrderInGroup(Order order) {
+        Hibernate.initialize(order.getOrderGroup());
+        return order.getOrderGroup().getOrders().get(0).getId().equals(order.getId());
     }
 
     private double getRate(Courier courier, List<Order> orders, LocalDateTime startDate, LocalDateTime endDate) {
