@@ -3,6 +3,7 @@ package cz.cvut.ear.DarkstoreApi.controller;
 import cz.cvut.ear.DarkstoreApi.dto.CompleteOrderRequestDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.OrderGroupDto;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -40,5 +41,11 @@ public class OrderController {
     @PostMapping("/complete")
     public ResponseEntity<List<OrderDto>> completeOrders(@RequestBody @Valid CompleteOrderRequestDto completeOrderRequestDto) {
         return ResponseEntity.ok(orderService.completeOrders(completeOrderRequestDto));
+    }
+
+    @PostMapping("/assign")
+    public ResponseEntity<List<OrderGroupDto>> assignOrders() {
+        orderService.deleteAllOrderGroups();
+        return ResponseEntity.ok(orderService.assignOrders());
     }
 }

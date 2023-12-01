@@ -3,19 +3,18 @@ package cz.cvut.ear.DarkstoreApi.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class OrderDto {
 
+    @JsonProperty("order_id")
     private Long orderId;
 
     private float weight;
 
     private int region;
 
-    @JsonProperty("delivery_hours")
-    private List<String> deliveryHours;
+    @JsonProperty("delivery_hour")
+    private String deliveryHour;
 
     private int cost;
 

@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class CreateOrderDto {
 
@@ -17,10 +15,11 @@ public class CreateOrderDto {
     @Positive
     private int region;
 
-    @JsonProperty("delivery_hours")
+    @JsonProperty("delivery_hour")
+    @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]-(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
+            message = "Provided invalid delivery_hours.")
     @Valid
-    private List<@Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]-(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$",
-            message = "Provided invalid delivery_hours.") String> deliveryHours;
+    private String deliveryHour;
 
     @Positive
     private int cost;
