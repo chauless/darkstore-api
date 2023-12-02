@@ -123,6 +123,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>cz/cvut/ear/DarkstoreApi/DarkstoreApiApplication.java</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
