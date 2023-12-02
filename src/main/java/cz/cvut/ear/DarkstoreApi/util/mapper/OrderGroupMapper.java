@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Mapper(uses = OrderMapper.class)
 public interface OrderGroupMapper {
-    OrderGroupMapper INSTANCE = Mappers.getMapper(OrderGroupMapper.class);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "courierId", source = "courier.id")
