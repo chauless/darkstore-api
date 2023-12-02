@@ -1,6 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.configuration;
 
-import cz.cvut.ear.DarkstoreApi.controller.filter.RateLimitingFilter;
+import cz.cvut.ear.DarkstoreApi.util.mapper.filter.RateLimitingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
