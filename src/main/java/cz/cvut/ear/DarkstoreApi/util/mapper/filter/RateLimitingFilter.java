@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.controller.filter;
+package cz.cvut.ear.DarkstoreApi.util.mapper.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,12 +24,10 @@ public class RateLimitingFilter extends OncePerRequestFilter {
     private final Bucket bucket;
 
     private final ObjectMapper objectMapper;
-//    private final RateLimiterConfiguration properties;
 
     @Autowired
     public RateLimitingFilter(ObjectMapper objectMapper, RateLimiterConfiguration properties) {
         this.objectMapper = objectMapper;
-//        this.properties = properties;
 
         Bandwidth limit = Bandwidth.classic(
                 properties.getCapacity(),
