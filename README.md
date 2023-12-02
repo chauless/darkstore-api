@@ -27,11 +27,11 @@
 
 
 
-# Who the final system will be intended for:
+## Who the final system will be intended for:
 
 Imagine, that we’ve got an order from Rohlik.cz to create a new REST API service for their store. The final system will be intended for their operators to efficiently manage couriers and orders. This system will allow the registration of new couriers, management of their work schedules, and distribution of orders among them.
 
-# Instructions for running the project on a local machine
+## Instructions for running the project on a local machine
 - Install Docker - https://docs.docker.com/get-docker/
 - Clone the Darkstore API repository
 ```bash
