@@ -5,14 +5,17 @@ import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfo;
 import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfoRequestDto;
 import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
 import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
-import cz.cvut.ear.DarkstoreApi.model.Role;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import cz.cvut.ear.DarkstoreApi.repository.CourierRepository;
 import cz.cvut.ear.DarkstoreApi.repository.OrderRepository;
+import cz.cvut.ear.DarkstoreApi.service.security.JwtService;
 import cz.cvut.ear.DarkstoreApi.util.mapper.CourierMapper;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +32,21 @@ public class CourierService {
     private final CourierRepository courierRepository;
     private final OrderRepository orderRepository;
     private final CourierMapper courierMapper;
+    private final AuthenticationManager authenticationManager;
+
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Transactional
     public List<CourierDto> createCouriers(CreateCourierRequest createCourierRequest) {
         List<Courier> savedCouriers = courierMapper.createCourierDtoToCourier(createCourierRequest.getCouriers());
 
-        savedCouriers.forEach(courier -> courier.setRole(Role.ROLE_COURIER));
+        for (int i = 0; i < savedCouriers.size(); i++) {
+            Courier courier = savedCouriers.get(i);
+            courier.setPassword(passwordEncoder.encode(courier.getPassword()));
+        }
+
+//        savedCouriers.forEach(courier -> courier.setRole(Role.ROLE_COURIER));
 
         savedCouriers = courierRepository.saveAll(savedCouriers);
 
@@ -68,6 +80,15 @@ public class CourierService {
         double rate = getRate(courier, orders, startDate, endDate);
 
         return new CourierMetaInfo(earnings, rate);
+    }
+
+    public CourierMetaInfo getCourierMetaInfo(Authentication authentication, CourierMetaInfoRequestDto courierMetaInfoRequestDto) {
+        String email = authentication.getName();
+
+        Courier courier = courierRepository.findByEmail(email)
+                .orElseThrow(() -> new CourierNotFoundException("Courier with email " + email + " not found."));
+
+        return getCourierMetaInfo(courier.getId(), courierMetaInfoRequestDto);
     }
 
     private int getEarnings(Courier courier, List<Order> orders) {
