@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Mapper
 public interface OrderMapper {
-    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
     @Named("convertToDeliveryHour")
     static DeliveryHour convertToDeliveryHour(String deliveryHour) {
@@ -25,22 +24,14 @@ public interface OrderMapper {
         return deliveryHour.getStart() + "-" + deliveryHour.getFinish();
     }
 
-//    @Mapping(target = "id", ignore = true)
-//    @Mapping(target = "orderGroup", ignore = true)
     @Mapping(source = "weight", target = "weight")
     @Mapping(source = "region", target = "region")
     @Mapping(source = "deliveryHour", target = "deliveryHour", qualifiedByName = "convertToDeliveryHour")
     @Mapping(source = "cost", target = "cost")
     Order createOrderDtoToOrder(CreateOrderDto createOrderDto);
 
-//    default List<String> map(List<DeliveryHour> value) {
-//        return value.stream().map(deliveryHour -> deliveryHour.getStart()
-//                + "-" + deliveryHour.getFinish()).collect(Collectors.toList());
-//    }
-
     @AfterMapping
     default void setOrder(@MappingTarget Order order) {
-//        order.getDeliveryHour().forEach(deliveryHour -> deliveryHour.setOrder(order));
         order.getDeliveryHour().setOrder(order);
     }
 

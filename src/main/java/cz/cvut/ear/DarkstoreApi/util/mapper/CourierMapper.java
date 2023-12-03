@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 @Mapper
 public interface CourierMapper {
 
-    CourierMapper INSTANCE = Mappers.getMapper(CourierMapper.class);
-
     @Named("integerToCourierRegion")
     static List<CourierRegion> integerToCourierRegion(List<Integer> regions) {
         return regions.stream().map(CourierRegion::new).collect(Collectors.toList());
