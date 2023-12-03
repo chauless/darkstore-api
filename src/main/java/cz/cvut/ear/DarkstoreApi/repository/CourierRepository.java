@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CourierRepository extends JpaRepository<Courier, Long>{
+    Optional<Courier> findByEmail(String email);
+
     @Query("SELECT c FROM Courier c" +
             " ORDER BY CASE c.type WHEN cz.cvut.ear.DarkstoreApi.model.courier.CourierType.FOOT THEN 1" +
             " WHEN cz.cvut.ear.DarkstoreApi.model.courier.CourierType.BIKE THEN 2" +

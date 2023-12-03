@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findOrdersByOrderGroupCourierEmail(String email);
     List<Order> findByOrderGroupCourierAndCompleteTimeBetween(Courier courier, LocalDateTime startDate, LocalDateTime endDate);
 
     @Query("SELECT o FROM Order o " +
