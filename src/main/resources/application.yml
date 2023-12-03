@@ -23,3 +23,8 @@ rate-limiter:
   refillTokens: 10
   refillDurationInSeconds: 10
   initialTokens: 10
+
+security:
+  jwt:
+    secret-key: 8010b14e15f274416898ad78da0539940ba32fb19e6d40bed348c94f678c8e01
+    expiration-in-ms: 86400000

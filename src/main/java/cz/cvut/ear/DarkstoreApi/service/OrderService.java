@@ -3,6 +3,7 @@ package cz.cvut.ear.DarkstoreApi.service;
 import cz.cvut.ear.DarkstoreApi.dto.*;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotReadyForCompletionException;
+import cz.cvut.ear.DarkstoreApi.model.Role;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierRegion;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierType;
@@ -17,6 +18,9 @@ import cz.cvut.ear.DarkstoreApi.repository.OrderRepository;
 import cz.cvut.ear.DarkstoreApi.util.mapper.OrderGroupMapper;
 import cz.cvut.ear.DarkstoreApi.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,8 +54,23 @@ public class OrderService {
         return orderMapper.orderToOrderDto(savedOrders);
     }
 
-    public List<OrderDto> getOrders(int limit, int offset) {
-        return orderMapper.orderToOrderDto(orderRepository.findAll().stream().skip(offset).limit(limit).toList());
+    public List<OrderDto> getOrders(Authentication authentication, int limit, int offset) {
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        if (authorities.contains(new SimpleGrantedAuthority("ROLE_MANAGER"))) {
+            return orderMapper.orderToOrderDto(getOrders(limit, offset));
+        } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_COURIER"))) {
+            return orderMapper.orderToOrderDto(getOrdersForCourier(authentication.getName(), limit, offset));
+        } else {
+            throw new IllegalStateException("Unexpected value: " + authorities);
+        }
+    }
+
+    public List<Order> getOrders(int limit, int offset) {
+        return orderRepository.findAll().stream().skip(offset).limit(limit).toList();
+    }
+
+    public List<Order> getOrdersForCourier(String email, int limit, int offset) {
+        return orderRepository.findOrdersByOrderGroupCourierEmail(email).stream().skip(offset).limit(limit).toList();
     }
 
     public OrderDto getOrder(long orderId) {
