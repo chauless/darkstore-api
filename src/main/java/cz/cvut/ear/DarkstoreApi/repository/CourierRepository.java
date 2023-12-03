@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.repository;
 
+import cz.cvut.ear.DarkstoreApi.dto.CourierSummaryDto;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,7 @@ public interface CourierRepository extends JpaRepository<Courier, Long>{
             " WHEN cz.cvut.ear.DarkstoreApi.model.courier.CourierType.AUTO THEN 3" +
             " END")
     List<Courier> findAllSortedByType();
+
+    @Query(nativeQuery = true, name = "Courier.findSummary")
+    List<CourierSummaryDto> findCourierSummary();
 }
