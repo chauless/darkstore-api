@@ -148,7 +148,6 @@ public class OrderControllerTest {
         List<OrderDto> orderDtoList = Arrays.asList(orderDto);
 
         ResponseEntity<List<OrderDto>> responseEntity = ResponseEntity.ok(orderDtoList);
-        when(orderService.getOrders(anyInt(), anyInt())).thenReturn(responseEntity.getBody());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/orders")
                         .param("limit", "1")
