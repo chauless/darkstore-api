@@ -1,6 +1,8 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
-import cz.cvut.ear.DarkstoreApi.dto.*;
+import cz.cvut.ear.DarkstoreApi.dto.CreateOrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
+import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import cz.cvut.ear.DarkstoreApi.repository.CourierRepository;
 import cz.cvut.ear.DarkstoreApi.repository.OrderGroupRepository;
@@ -14,11 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
