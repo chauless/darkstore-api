@@ -1,7 +1,7 @@
 package cz.cvut.ear.DarkstoreApi.configuration;
 
-import cz.cvut.ear.DarkstoreApi.controller.filter.RateLimitingFilter;
 import cz.cvut.ear.DarkstoreApi.repository.UserRepository;
+import cz.cvut.ear.DarkstoreApi.util.mapper.filter.RateLimitingFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

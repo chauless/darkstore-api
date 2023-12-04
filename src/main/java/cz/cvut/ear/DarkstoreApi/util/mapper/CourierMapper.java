@@ -41,7 +41,6 @@ public interface CourierMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "orderGroups", ignore = true)
-    @Mapping(target = "role", ignore = true)
     @Mapping(source = "type", target = "type")
     @Mapping(source = "regions", target = "regions", qualifiedByName = "integerToCourierRegion")
     @Mapping(source = "workingHours", target = "workingHours", qualifiedByName = "convertToWorkingHours")
