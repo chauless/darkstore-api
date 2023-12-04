@@ -1,5 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
+import cz.cvut.ear.DarkstoreApi.dto.CourierSummaryDto;
 import cz.cvut.ear.DarkstoreApi.model.User;
 import cz.cvut.ear.DarkstoreApi.model.order.OrderGroup;
 import jakarta.persistence.*;
@@ -20,6 +21,21 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedNativeQuery(
+        name = "Courier.findSummary",
+        query = "SELECT id, type FROM Courier",
+        resultSetMapping = "CourierSummaryDtoMapping"
+)
+@SqlResultSetMapping(
+        name = "CourierSummaryDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = CourierSummaryDto.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "type", type = String.class)
+                }
+        )
+)
 public class Courier extends User {
 
     @Enumerated(EnumType.STRING)

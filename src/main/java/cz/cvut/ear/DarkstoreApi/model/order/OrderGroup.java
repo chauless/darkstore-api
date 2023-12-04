@@ -23,6 +23,7 @@ public class OrderGroup {
     Courier courier;
 
     @OneToMany(mappedBy = "orderGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OrderBy("weight DESC")
     private List<Order> orders = new ArrayList<>();
 
     @Override
