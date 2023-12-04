@@ -169,4 +169,4 @@ POSTGRES_PASSWORD=password
 ```bash
 docker-compose up
 ```
-- The documentation page will be available at: http://localhost:8080/swagger-ui/index.html
+- Test data is available in a Postman workspace: [link](https://www.postman.com/restless-station-469785/workspace/darkstoreapi/collection/28422079-98b9cf47-0e20-44e6-b739-5f2f87449403?action=share&creator=28422079)
