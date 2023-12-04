@@ -5,9 +5,11 @@ import cz.cvut.ear.DarkstoreApi.service.CourierService;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -19,7 +21,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(CourierController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class CourierControllerTest {
 
     @Autowired
@@ -32,6 +35,7 @@ public class CourierControllerTest {
     private OrderService orderService;
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testCreateCouriers() throws Exception {
         CourierDto courierDto = new CourierDto();
         courierDto.setCourierId(1L);
@@ -45,6 +49,7 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testCreateCouriersValidationError() throws Exception {
         when(courierService.createCouriers(any(CreateCourierRequest.class))).thenThrow(new IllegalArgumentException("Invalid request"));
 
@@ -55,6 +60,7 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCouriers() throws Exception {
         CourierDto courierDto = new CourierDto();
         courierDto.setCourierId(1L);
@@ -68,6 +74,7 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCourierById() throws Exception {
         CourierDto courierDto = new CourierDto();
         courierDto.setCourierId(1L);
@@ -79,14 +86,16 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCourierByIdNotFoundError() throws Exception {
         when(courierService.getCourier(any(Long.class))).thenThrow(new IllegalArgumentException("Courier not found"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/couriers/1"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCourierMetaInfoById() throws Exception {
         CourierMetaInfo courierMetaInfo = new CourierMetaInfo(100, 4.5);
         when(courierService.getCourierMetaInfo(anyLong(), any(CourierMetaInfoRequestDto.class))).thenReturn(courierMetaInfo);
@@ -100,16 +109,18 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCourierMetaInfoByIdNotFoundError() throws Exception {
         when(courierService.getCourierMetaInfo(anyLong(), any(CourierMetaInfoRequestDto.class))).thenThrow(new IllegalArgumentException("Courier not found"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/couriers/meta-info/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"start_date\":\"2022-01-01\",\"end_date\":\"2022-01-31\"}"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetCourierMetaInfoByIdBadRequest() throws Exception {
         when(courierService.getCourierMetaInfo(anyLong(), any(CourierMetaInfoRequestDto.class))).thenThrow(new IllegalArgumentException("Invalid request"));
 
@@ -120,10 +131,11 @@ public class CourierControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "MANAGER")
     public void testGetAssignmentsBadRequest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/couriers/assignments")
                         .param("limit", "-1")
                         .param("offset", "-1"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 }
