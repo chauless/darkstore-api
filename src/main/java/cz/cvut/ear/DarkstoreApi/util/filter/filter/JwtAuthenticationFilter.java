@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.util.mapper.filter;
+package cz.cvut.ear.DarkstoreApi.util.filter.filter;
 
 import cz.cvut.ear.DarkstoreApi.service.security.JwtService;
 import jakarta.servlet.FilterChain;

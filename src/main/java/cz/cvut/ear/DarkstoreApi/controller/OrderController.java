@@ -1,9 +1,9 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
-import cz.cvut.ear.DarkstoreApi.dto.CompleteOrderRequestDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
-import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
-import cz.cvut.ear.DarkstoreApi.dto.OrderGroupDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.completeOrder.CompleteOrderRequestDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderRequest;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderGroupDto;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;

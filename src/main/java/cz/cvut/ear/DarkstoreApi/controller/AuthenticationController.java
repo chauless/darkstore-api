@@ -1,7 +1,7 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
-import cz.cvut.ear.DarkstoreApi.dto.AuthenticationRequest;
-import cz.cvut.ear.DarkstoreApi.dto.AuthenticationResponse;
+import cz.cvut.ear.DarkstoreApi.dto.user.authentication.AuthenticationRequest;
+import cz.cvut.ear.DarkstoreApi.dto.user.authentication.AuthenticationResponse;
 import cz.cvut.ear.DarkstoreApi.service.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

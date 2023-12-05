@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.dto;
+package cz.cvut.ear.DarkstoreApi.dto.user.authentication;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

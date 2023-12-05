@@ -1,14 +1,12 @@
 package cz.cvut.ear.DarkstoreApi.util.mapper;
 
-import cz.cvut.ear.DarkstoreApi.dto.CreateOrderDto;
-import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderDto;
 import cz.cvut.ear.DarkstoreApi.model.order.DeliveryHour;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper
 public interface OrderMapper {

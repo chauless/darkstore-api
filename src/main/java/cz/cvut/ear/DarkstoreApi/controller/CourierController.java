@@ -1,6 +1,10 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
-import cz.cvut.ear.DarkstoreApi.dto.*;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderGroupDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.createCourier.CreateCourierRequest;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfo;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfoRequestDto;
 import cz.cvut.ear.DarkstoreApi.service.CourierService;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;
 import jakarta.validation.Valid;
