@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.dto;
+package cz.cvut.ear.DarkstoreApi.dto.user.courier.createCourier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierType;

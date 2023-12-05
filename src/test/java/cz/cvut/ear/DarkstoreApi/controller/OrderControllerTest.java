@@ -1,11 +1,10 @@
 package cz.cvut.ear.DarkstoreApi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.cvut.ear.DarkstoreApi.configuration.AppConfiguration;
-import cz.cvut.ear.DarkstoreApi.dto.CompleteOrderRequestDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateOrderDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateOrderRequest;
-import cz.cvut.ear.DarkstoreApi.dto.OrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.completeOrder.CompleteOrderRequestDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderRequest;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderDto;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
 import cz.cvut.ear.DarkstoreApi.service.OrderService;

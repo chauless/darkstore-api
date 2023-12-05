@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.dto;
+package cz.cvut.ear.DarkstoreApi.dto.user.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

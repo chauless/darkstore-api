@@ -1,12 +1,11 @@
 package cz.cvut.ear.DarkstoreApi.util.mapper;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateCourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.createCourier.CreateCourierDto;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierRegion;
 import cz.cvut.ear.DarkstoreApi.model.courier.WorkingHour;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
 import java.time.LocalTime;
 import java.util.List;

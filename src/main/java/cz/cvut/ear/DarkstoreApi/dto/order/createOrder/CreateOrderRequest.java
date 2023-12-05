@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.dto;
+package cz.cvut.ear.DarkstoreApi.dto.order.createOrder;
 
 import jakarta.validation.Valid;
 import lombok.Data;
