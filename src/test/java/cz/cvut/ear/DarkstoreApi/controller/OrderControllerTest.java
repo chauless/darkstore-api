@@ -123,7 +123,7 @@ public class OrderControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/orders")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createOrderRequest)))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
         verify(orderService, times(0)).createOrders(any(CreateOrderRequest.class));
     }
@@ -136,7 +136,7 @@ public class OrderControllerTest {
         mockMvc.perform(post("/orders")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"orders\": [{\"weight\": -1.0, \"region\": 1, \"deliveryHour\": \"10:00-11:00\", \"cost\": 100}, {\"weight\": 2.0, \"region\": 2, \"deliveryHour\": \"12:00-13:00\", \"cost\": 200}]}"))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -259,7 +259,7 @@ public class OrderControllerTest {
         mockMvc.perform(post("/orders/complete")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"orders\": [{\"order_id\": 1, \"complete_time\": \"invalid_time\"}, {\"order_id\": 2, \"complete_time\": \"2022-12-12T11:00:00Z\"}]}"))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
