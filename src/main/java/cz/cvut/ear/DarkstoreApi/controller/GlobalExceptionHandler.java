@@ -3,9 +3,12 @@ package cz.cvut.ear.DarkstoreApi.controller;
 import cz.cvut.ear.DarkstoreApi.dto.ErrorDetails;
 import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
+import io.jsonwebtoken.io.DeserializationException;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,6 +40,18 @@ public class GlobalExceptionHandler {
                 .orElse("Validation error");
 
         ErrorDetails errorDetails = new ErrorDetails(new Date(), message);
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleBadCredentialsException(Exception ex) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(DeserializationException.class)
+    public ResponseEntity<?> handleJsonParseException(Exception ex) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
