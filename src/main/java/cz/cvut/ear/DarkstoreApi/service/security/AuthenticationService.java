@@ -1,15 +1,12 @@
 package cz.cvut.ear.DarkstoreApi.service.security;
 
-import cz.cvut.ear.DarkstoreApi.model.Manager;
 import cz.cvut.ear.DarkstoreApi.model.User;
-import cz.cvut.ear.DarkstoreApi.repository.ManagerRepository;
 import cz.cvut.ear.DarkstoreApi.repository.UserRepository;
-import cz.cvut.ear.DarkstoreApi.dto.AuthenticationRequest;
-import cz.cvut.ear.DarkstoreApi.dto.AuthenticationResponse;
+import cz.cvut.ear.DarkstoreApi.dto.user.authentication.AuthenticationRequest;
+import cz.cvut.ear.DarkstoreApi.dto.user.authentication.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

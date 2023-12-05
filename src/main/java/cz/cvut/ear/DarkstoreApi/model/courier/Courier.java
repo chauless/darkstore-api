@@ -1,6 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.model.courier;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierSummaryDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierSummaryDto;
 import cz.cvut.ear.DarkstoreApi.model.User;
 import cz.cvut.ear.DarkstoreApi.model.order.OrderGroup;
 import jakarta.persistence.*;
@@ -56,6 +56,7 @@ public class Courier extends User {
     @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderGroup> orderGroups = new ArrayList<>();
 
+    @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_COURIER"));

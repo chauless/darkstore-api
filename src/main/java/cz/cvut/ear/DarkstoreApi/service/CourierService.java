@@ -1,9 +1,9 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfo;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfoRequestDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfo;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfoRequestDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.createCourier.CreateCourierRequest;
 import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
@@ -45,8 +45,6 @@ public class CourierService {
             Courier courier = savedCouriers.get(i);
             courier.setPassword(passwordEncoder.encode(courier.getPassword()));
         }
-
-//        savedCouriers.forEach(courier -> courier.setRole(Role.ROLE_COURIER));
 
         savedCouriers = courierRepository.saveAll(savedCouriers);
 

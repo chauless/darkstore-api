@@ -1,9 +1,9 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierDto;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfo;
-import cz.cvut.ear.DarkstoreApi.dto.CourierMetaInfoRequestDto;
-import cz.cvut.ear.DarkstoreApi.dto.CreateCourierRequest;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfo;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.metaInfo.CourierMetaInfoRequestDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.createCourier.CreateCourierRequest;
 import cz.cvut.ear.DarkstoreApi.exception.CourierNotFoundException;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.order.Order;
@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;

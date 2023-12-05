@@ -1,9 +1,13 @@
 package cz.cvut.ear.DarkstoreApi.service;
 
-import cz.cvut.ear.DarkstoreApi.dto.*;
+import cz.cvut.ear.DarkstoreApi.dto.order.completeOrder.CompleteOrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.completeOrder.CompleteOrderRequestDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.OrderGroupDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderDto;
+import cz.cvut.ear.DarkstoreApi.dto.order.createOrder.CreateOrderRequest;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotFoundException;
 import cz.cvut.ear.DarkstoreApi.exception.OrderNotReadyForCompletionException;
-import cz.cvut.ear.DarkstoreApi.model.Role;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierRegion;
 import cz.cvut.ear.DarkstoreApi.model.courier.CourierType;

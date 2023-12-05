@@ -1,4 +1,4 @@
-package cz.cvut.ear.DarkstoreApi.dto;
+package cz.cvut.ear.DarkstoreApi.dto.order.createOrder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;

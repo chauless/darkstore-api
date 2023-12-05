@@ -1,6 +1,6 @@
 package cz.cvut.ear.DarkstoreApi.repository;
 
-import cz.cvut.ear.DarkstoreApi.dto.CourierSummaryDto;
+import cz.cvut.ear.DarkstoreApi.dto.user.courier.CourierSummaryDto;
 import cz.cvut.ear.DarkstoreApi.model.courier.Courier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

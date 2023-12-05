@@ -1,6 +1,7 @@
 package cz.cvut.ear.DarkstoreApi.configuration;
 
-import cz.cvut.ear.DarkstoreApi.controller.filter.JwtAuthenticationFilter;
+
+import cz.cvut.ear.DarkstoreApi.util.filter.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
