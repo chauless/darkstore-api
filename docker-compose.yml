@@ -13,9 +13,7 @@ services:
     restart: unless-stopped
 
   darkstore-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: chauless/darkstoreapi:latest
     container_name: darkstore-api
     ports:
       - "8080:8080"
