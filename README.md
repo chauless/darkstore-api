@@ -157,7 +157,7 @@ Imagine, that we’ve got an order from Rohlik.cz to create a new REST API servi
 - Install Docker - https://docs.docker.com/get-docker/
 - Clone the Darkstore API repository
 ```bash
-git clone git@gitlab.fel.cvut.cz:B231_B6B36EAR/morenmat.git
+git clone git@github.com:chauless/darkstore-api.git
 ```
 - Fill in the database configuration in .env file.
 ```bash
